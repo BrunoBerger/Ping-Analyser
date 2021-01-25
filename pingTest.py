@@ -3,6 +3,7 @@ import time
 import statistics
 
 from pythonping import ping
+import matplotlib.pyplot as plt
 
 # Progressbar from https://stackoverflow.com/a/34325723
 # Print iterations progress
@@ -27,6 +28,10 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     if iteration == total:
         print()
 
+def plotData(pings):
+    plt.plot(pings)
+    plt.show()
+
 def main(args):
     numberOfPings = int(args["testTime"]/args["interval"])
     pings = []
@@ -41,7 +46,8 @@ def main(args):
 
     print("Pinged", args["adress"], len(pings) , "times")
     print("Avarage ping: {:.2f}ms".format(statistics.mean(pings)))
-    input()
+    input("Press Enter to plot the data")
+    plotData(pings)
 
 if __name__ == "__main__":
         parser = argparse.ArgumentParser()

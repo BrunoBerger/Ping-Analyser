@@ -1,0 +1,2 @@
+matplotlib==3.2.1
+pythonping==1.0.15

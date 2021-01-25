@@ -3,6 +3,7 @@ Continous ping analysis
 
 ### Install:
 - pip install pythonping
+- pip install matplotlib
 
 ### Arguments:
 | Flag | Default | Description                     |
@@ -10,4 +11,3 @@ Continous ping analysis
 | `t`    | 10      | Test Duration in second                  |
 | `i`   | 0.2     | Interval between each ping in s |
 | `a`    | '8.8.8.8' | IP-adress                       |
-
