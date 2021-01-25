@@ -13,4 +13,4 @@ Continous ping analysis
 |------|---------|---------------------------------|
 | `t`    | 10      | Test Duration in second                  |
 | `i`   | 0.1     | Interval between each ping in s |
-| `a`    | '8.8.8.8' | IP-adress                       |
+| `a`    | 'google.com' | IP-adress                       |

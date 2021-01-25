@@ -29,7 +29,7 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
         print()
 
 def plotData(args, pings):
-    plt.xlim(0, args["testTime"])
+    plt.xlim(0, len(pings))
     plt.plot(pings)
     plt.ylabel("Ping to: " + args["adress"]+"/ms")
     plt.xlabel("Time")
@@ -54,11 +54,11 @@ def main(args):
 
 if __name__ == "__main__":
         parser = argparse.ArgumentParser()
-        parser.add_argument("-t", "--testTime", type=int, default=5,
+        parser.add_argument("-t", "--testTime", type=int, default=10,
                             help="Test-time in seconds")
         parser.add_argument("-i", "--interval", type=float, default=0.1,
                             help="time between each ping")
-        parser.add_argument("-a", "--adress", default='8.8.8.8',
+        parser.add_argument("-a", "--adress", default='google.com',
                             help="Sever Adress")
         args = vars(parser.parse_args())
         main(args)
