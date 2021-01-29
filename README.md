@@ -1,14 +1,18 @@
 # Ping-Analyser
-Continous ping analysis
+Analyse your ping over time
 
-### Install:
-- pip install pythonping
-- pip install matplotlib
+### Installation:
+- Install Python > 3.7 and pip
+- `pip install pythonping`
+- `pip install matplotlib`  
+or
+- `pip install -r requirements.txt`
+
 
 ### Usage:
-`py pingTest.py -t 20 -a IP_ADRESS_HERE`
+`py pingTest.py -a IP_ADRESS/URL_HERE`
 
-### Arguments:
+##### Optional Arguments:
 | Flag | Default | Description                     |
 |------|---------|---------------------------------|
 | `t`    | 10      | Test Duration in second                  |

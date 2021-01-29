@@ -28,28 +28,38 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     if iteration == total:
         print()
 
+# TODO: add more stuff
 def plotData(args, pings):
     plt.xlim(0, len(pings))
     plt.plot(pings)
     plt.ylabel("Ping to: " + args["adress"]+"/ms")
-    plt.xlabel("Time")
+    plt.xlabel("Pings")
     plt.show()
 
 def main(args):
-    numberOfPings = int(args["testTime"]/args["interval"])
-    pings = []
-    printProgressBar(0, numberOfPings, prefix = 'Progress:', suffix = 'Complete', length = 50)
+    # Measurement to get when to stop and completion%
+    # multiply to get finer completion percentage
+    startT = time.time()
+    timeout = time.time() + args["testTime"]
+    plannedTime = args["testTime"]*100
+    printProgressBar(0, plannedTime,
+                     prefix = 'Progress:', suffix = 'Complete', length = 50)
 
-    for e in range(numberOfPings):
+    pings = []
+    while time.time() <= timeout:
         response_list = ping(args["adress"], size=40, count=1)
         pings.append(response_list.rtt_avg_ms)
         # Update Progress Bar
-        printProgressBar(e + 1, numberOfPings, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        timeleft = int((timeout - time.time())*100)
+        printProgressBar(plannedTime-timeleft, plannedTime,
+                         prefix = 'Progress:', suffix = 'Complete', length = 50)
         time.sleep(args["interval"])
 
     print("Pinged", args["adress"], len(pings) , "times")
     print("Avarage ping: {:.2f}ms".format(statistics.mean(pings)))
-    input("Press Enter to plot the data")
+
+    endT = time.time()
+    print("Elapsed Time: {:.2f} seconds".format(endT-startT))
     plotData(args, pings)
 
 if __name__ == "__main__":
