@@ -32,8 +32,8 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 def plotData(args, pings):
     plt.xlim(0, len(pings))
     plt.plot(pings)
-    plt.ylabel("Ping to: " + args["adress"]+"/ms")
-    plt.xlabel("Pings")
+    plt.ylabel("Ping to " + args["adress"]+ " in ms")
+    plt.xlabel("Pings, with a "+ str(args["interval"]) + "s interval")
     plt.show()
 
 def main(args):
@@ -62,6 +62,7 @@ def main(args):
     print("Elapsed Time: {:.2f} seconds".format(endT-startT))
     plotData(args, pings)
 
+# TODO: Make a list of std.-adresses available
 if __name__ == "__main__":
         parser = argparse.ArgumentParser()
         parser.add_argument("-t", "--testTime", type=int, default=10,
