@@ -30,9 +30,13 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 
 # TODO: add more stuff
 def plotData(args, pings):
+    filename = time.strftime("PingTestResult_%d-%m-%Y_%Hh%Mm%Ss", time.localtime())
+    plt.figure(filename)
+
     plt.xlim(0, len(pings))
     plt.plot(pings)
-    plt.ylabel("Ping to " + args["adress"]+ " in ms")
+    ylabel = "Ping to {} in ms".format(args["adress"])
+    plt.ylabel(ylabel)
     plt.xlabel("Pings, with a "+ str(args["interval"]) + "s interval")
     plt.show()
 
