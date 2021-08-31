@@ -6,7 +6,6 @@ from pythonping import ping
 import matplotlib.pyplot as plt
 
 # Progressbar from https://stackoverflow.com/a/34325723
-# Print iterations progress
 def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
     """
     Call in a loop to create terminal progress bar
@@ -50,14 +49,17 @@ def main(args):
                      prefix = 'Progress:', suffix = 'Complete', length = 50)
 
     pings = []
-    while time.time() <= timeout:
-        response_list = ping(args["adress"], size=40, count=1)
-        pings.append(response_list.rtt_avg_ms)
-        # Update Progress Bar
-        timeleft = int((timeout - time.time())*100)
-        printProgressBar(plannedTime-timeleft, plannedTime,
-                         prefix = 'Progress:', suffix = 'Complete', length = 50)
-        time.sleep(args["interval"])
+    try:
+        while time.time() <= timeout:
+            response_list = ping(args["adress"], size=40, count=1)
+            pings.append(response_list.rtt_avg_ms)
+            # Update Progress Bar
+            timeleft = int((timeout - time.time())*100)
+            printProgressBar(plannedTime-timeleft, plannedTime,
+                             prefix = 'Progress:', suffix = 'Complete', length = 50)
+            time.sleep(args["interval"])
+    except KeyboardInterrupt:
+        print("\nTest aborted")
 
     print("Pinged", args["adress"], len(pings) , "times")
     print("Avarage ping: {:.2f}ms".format(statistics.mean(pings)))
@@ -68,11 +70,12 @@ def main(args):
 
 # TODO: Make a list of std.-adresses available
 if __name__ == "__main__":
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         parser.add_argument("-t", "--testTime", type=int, default=10,
-                            help="Test-time in seconds")
+                            help="Test duration in seconds")
         parser.add_argument("-i", "--interval", type=float, default=0.1,
-                            help="time between each ping")
+                            help="Time between each ping")
         parser.add_argument("-a", "--adress", default='google.com',
                             help="Sever Adress")
         args = vars(parser.parse_args())
