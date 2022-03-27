@@ -2,7 +2,8 @@ import argparse
 import time
 import statistics
 
-from pythonping import ping
+# from pythonping import ping
+import pythonping
 import matplotlib.pyplot as plt
 
 # Progressbar from https://stackoverflow.com/a/34325723
@@ -51,17 +52,19 @@ def main(args):
     pings = []
     try:
         while time.time() <= timeout:
-            response_list = ping(args["adress"], size=40, count=1)
+            response_list = pythonping.ping(args["adress"], size=40, count=1)
             pings.append(response_list.rtt_avg_ms)
             # Update Progress Bar
             timeleft = int((timeout - time.time())*100)
             printProgressBar(plannedTime-timeleft, plannedTime,
                              prefix = 'Progress:', suffix = 'Complete', length = 50)
             time.sleep(args["interval"])
+        printProgressBar(plannedTime, plannedTime,
+                         prefix = 'Progress:', suffix = 'Complete', length = 50)
     except KeyboardInterrupt:
         print("\nTest aborted")
 
-    print("Pinged", args["adress"], len(pings) , "times")
+    print("\nPinged", args["adress"], len(pings) , "times")
     print("Avarage ping: {:.2f}ms".format(statistics.mean(pings)))
 
     endT = time.time()
